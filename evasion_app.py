@@ -3,7 +3,7 @@ from werkzeug import secure_filename
 app = Flask(__name__)
 
 @app.route("/")
-def hello():
+def evasion_app():
   return render_template('index.html')
 
 
