@@ -28,11 +28,11 @@ dtree_param_grid = {
 
 classifiers = [
   ('LogisticRegression', LogisticRegression(max_iter=300), logreg_param_grid),
-  ('MLPClassifier', MLPClassifier(max_iter=1000), mlpc_param_grid),
+  # ('MLPClassifier', MLPClassifier(max_iter=1000), mlpc_param_grid),
   ('DecisionTreeClassifier', tree.DecisionTreeClassifier(), dtree_param_grid)
 ]
 
-def predict(df):
+def train(df):
   best_estimators = []
   feature_cols = df.columns.difference(['StatusFinal', 'StudentId'])
   features = df.loc[:, feature_cols] # we want all rows and the features columns
