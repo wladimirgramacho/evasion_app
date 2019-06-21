@@ -1,7 +1,7 @@
 from flask import Flask, render_template, request
 from werkzeug import secure_filename
 import model
-import predict
+import classifiers
 import os
 
 app = Flask(__name__)
@@ -18,15 +18,33 @@ def uploader():
     test_file = request.files['test_csv']
     train_file.save(secure_filename('train_file.csv'))
     test_file.save(secure_filename('test_file.csv'))
-    classifiers = train_classifiers()
-    return classifiers
+    estimators = train_classifiers()
+    results = test(estimators)
+
+    return render_template('results.html', results=results)
 
 def train_classifiers():
   df1 = model.model1('train_file.csv')
-  df2 = model.model2('train_file.csv')
-  best_estimators1 = predict.predict(df1)
-  best_estimators2 = predict.predict(df2)
-  return best_estimators1.append(best_estimators2)
+  # df2 = model.model2('train_file.csv')
+  best_estimators1 = classifiers.train(df1)
+  # best_estimators2 = classifiers.train(df2)
+  return best_estimators1
+
+def test(estimators):
+  test_df = model.model1('test_file.csv')
+  feature_cols = test_df.columns.difference(['StatusFinal', 'StudentId'])
+  features = test_df.loc[:, feature_cols] # we want all rows and the features columns
+
+  predictions = []
+  for estimator in estimators:
+    predictions.append(estimator.predict(features))
+
+  results = []
+  import pdb; pdb.set_trace()
+  for index, student in test_df.StudentId.items():
+    results.append([student, predictions[0][index], predictions[1][index]])
+
+  return results
 
 if __name__ == '__main__':
   app.debug = True
