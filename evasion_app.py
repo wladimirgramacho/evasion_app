@@ -24,14 +24,12 @@ def uploader():
     return render_template('results.html', results=results)
 
 def train_classifiers():
-  df1 = model.model1('train_file.csv')
-  # df2 = model.model2('train_file.csv')
-  best_estimators1 = classifiers.train(df1)
-  # best_estimators2 = classifiers.train(df2)
-  return best_estimators1
+  df = model.model2('train_file.csv')
+  best_estimators = classifiers.train(df)
+  return best_estimators
 
 def test(estimators):
-  test_df = model.model1('test_file.csv')
+  test_df = model.model2('test_file.csv')
   feature_cols = test_df.columns.difference(['StatusFinal', 'StudentId'])
   features = test_df.loc[:, feature_cols] # we want all rows and the features columns
 
@@ -40,7 +38,6 @@ def test(estimators):
     predictions.append(estimator.predict(features))
 
   results = []
-  import pdb; pdb.set_trace()
   for index, student in test_df.StudentId.items():
     results.append([student, predictions[0][index], predictions[1][index]])
 

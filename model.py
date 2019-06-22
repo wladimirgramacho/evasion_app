@@ -62,7 +62,7 @@ def model2(csv_file):
   df = df.drop(columns=['SemestreIngresso', 'SemestreMateria', 'CodigoMateria', 'Semester'])
 
   df = df.pivot_table(values='Conceito', index=[
-                        'StudentId', 'StatusFinal'], columns='CourseTerm', aggfunc='last', fill_value=-1)
+                        'StudentId', 'StatusFinal'], columns='CourseTerm', aggfunc='last', fill_value='NC')
   df.columns.name = None
   df = df.reset_index()
   df.loc[df['1_114014'] != -1, '1_114626'] = df['1_114014']
