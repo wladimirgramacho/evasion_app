@@ -1,1 +1,1 @@
-web: python evasion_app.py
+web: gunicorn evasion_app:evasion_app --timeout 1200
