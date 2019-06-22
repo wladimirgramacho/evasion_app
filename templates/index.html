@@ -7,7 +7,45 @@
   <title>Document</title>
 </head>
 <body>
-  <h1>Hello World!</h1>
+  <h1>Evasion App</h1>
+
+  <article>
+    <h2>Student Evasion Predictor</h2>
+    <p>This project intends to predict if a student from Universidade de Brasília will evade or graduate. This prediction is made from the student's academic record.</p>
+    <hr>
+    <h3>Input</h3>
+    <p>These are the values and the format for the inputs:</p>
+
+    <table border="1">
+      <thead>
+        <tr>
+          <th>StudentId</th>
+          <th>SemestreIngresso</th>
+          <th>SemestreMateria</th>
+          <th>CodigoMateria</th>
+          <th>Conceito</th>
+          <th>StatusFinal</th>
+        </tr>
+      </thead>
+    </table>
+
+    <ul>
+      <li><strong>StudentId</strong> (<em>integer</em>): this is just an id for the student and must correspond to the student's registration number</li>
+      <li><strong>SemestreIngresso</strong> (<em>integer</em>): the semester where the student enrolled in the graduation course. It must follow the format <code>AAAAS</code>, where <code>A</code> is a year digit and <code>S</code> is the semester.</li>
+      <li><strong>SemestreMateria</strong> (<em>integer</em>) the semester where the student enrolled in the course. It must follow the format <code>AAAAS</code>, where <code>A</code> is a year digit and <code>S</code> is the semester.</li>
+      <li><strong>CodigoMateria</strong> (<em>string</em>): the code for the course. Check the course codes at <a href="https://matriculaweb.unb.br/" rel="nofollow">Matricula Web</a>.</li>
+      <li><strong>Conceito</strong> (<em>string</em>): the grade for the course.</li>
+      <li><strong>StatusFinal</strong> (<em>string</em>): the status for the student. The values for this field shall be one of the following:
+        <ul>
+          <li>If graduated =&gt; <code>FORMATURA</code></li>
+          <li>If evaded =&gt; <code>EVADIDO</code></li>
+          <li>If still active =&gt; <code>ATIVO</code></li>
+        </ul>
+      </li>
+    </ul>
+    <p><em>Obs.: students who have passed away should not be used as input.</em></p>
+    <p>All the students used as input shall be enrolled in the same course. Here is an example of row for input:</p>
+  </article>
 
   <form action="http://localhost:5000/uploader" method="POST" 
     enctype = "multipart/form-data">
