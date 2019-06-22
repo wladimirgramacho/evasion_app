@@ -20,6 +20,7 @@ def uploader():
     test_file.save(secure_filename('test_file.csv'))
     estimators = train_classifiers()
     results = test(estimators)
+    remove_files()
 
     return render_template('results.html', results=results)
 
@@ -42,6 +43,10 @@ def test(estimators):
     results.append([student, predictions[0][index], predictions[1][index]])
 
   return results
+
+def remove_files():
+  os.remove('train_file.csv')
+  os.remove('test_file.csv')
 
 if __name__ == '__main__':
   app.debug = True
